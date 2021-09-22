@@ -73,6 +73,7 @@ Now we can go through each square gap in the racquet and check a few cases. Each
 
 Each of these cases can be solved by splitting the intersection area into triangles and a circular segment. Here's some code that does this:
 
+```c++
 double circle_segment(double rad, double th) {
   return rad*rad*(th - sin(th))/2;
 }
@@ -113,12 +114,13 @@ for (double y1 = r+f; y1 < R-t-f; y1 += g+2*r) {
   }
 }
 printf("Case #%d: %.6lf\n", prob++, 1.0 - ar / (PI*R*R/4));
-
+```
 
 This solution takes O(S2) time, where S is the number of vertical strings of the racquet. It's not hard to come up with an O(S) solution because there are at most 4S border squares which can be found efficiently, but the previous solution was fast enough.
 
 Instead of solving the problem exactly, an iterative solution which approximates the area to the needed precision would have also worked. One such solution uses divide and conquer by splitting the square into four smaller squares and then checking the simple cases where the squares are totally inside or totally outside the square. In the cases where the circle and square intersect just recurse if the current square is larger than some chosen precision. An observation is that we can divide every length by the radius of the racquet because it gets canceled in the division between the area of the gaps in the racquet and the disc area. This observation helps the iterative solution since we can make the number of iterations smaller. Here's some sample code:
 
+```c++
 double intersection(double x1, double y1,
                     double x2, double y2) {
   // the normalized radius is 1
@@ -144,6 +146,7 @@ double intersection(double x1, double y1,
     intersection(x1, my, mx, y2) +
     intersection(mx, my, x2, y2);
 }
+```
 
 ### Resource.
 https://codingcompetitions.withgoogle.com/codejam/round/0000000000432b79/0000000000432f32#problem
